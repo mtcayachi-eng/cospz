@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>البرنامج السنوي لمستشار التوجيه – المتوسط</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#071a22;--bg2:#10142e;--ink:#eefaf8;--mute:#9fb7bf;--gold:#ffc85a;--teal:#38e1c6;--sky:#5ab6ff;--rose:#ff7b9c;--vio:#a58bff;--glass:rgba(255,255,255,.06);--line:rgba(255,255,255,.14);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Cairo',system-ui,sans-serif;color:var(--ink);background:radial-gradient(900px 600px at 85% 8%,#0f5a66 0,transparent 60%),radial-gradient(800px 600px at 8% 95%,#3a2a7a 0,transparent 55%),linear-gradient(160deg,var(--bg1),var(--bg2))}
+#prog{position:fixed;top:env(safe-area-inset-top,0px);right:0;height:4px;width:0;background:linear-gradient(270deg,var(--gold),var(--teal));z-index:20;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.deck{position:relative;height:100%}
+.slide{position:absolute;inset:0;padding:5vh 6vw 12vh;display:flex;flex-direction:column;justify-content:center;gap:2vh;opacity:0;visibility:hidden;transform:translateX(-6%) scale(.98);transition:opacity .6s,transform .6s cubic-bezier(.2,.8,.2,1),visibility .6s;overflow:auto}
+.slide.prev{transform:translateX(6%) scale(.98)}
+.slide.on{opacity:1;visibility:visible;transform:none}
+h1{font-weight:900;font-size:clamp(2rem,5.6vw,4.4rem);line-height:1.25}
+h2{font-weight:800;font-size:clamp(1.4rem,3.4vw,2.4rem);line-height:1.3}
+p,li{font-size:clamp(.9rem,1.6vw,1.2rem);line-height:1.75;color:var(--mute)}
+.gold{color:var(--gold)}.teal{color:var(--teal)}.sky{color:var(--sky)}.rose{color:var(--rose)}.vio{color:var(--vio)}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:2vh 1.6vw;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.grid{display:grid;gap:1.3vw}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+.ic{font-size:clamp(1.5rem,2.8vw,2.3rem)}
+.card b{display:block;font-size:clamp(1rem,1.8vw,1.35rem);font-weight:700;color:var(--ink);margin:.25em 0}
+.num{font-weight:900;font-size:clamp(2.2rem,5.5vw,4.2rem);line-height:1;color:var(--gold)}
+.row{display:flex;align-items:center;gap:1vw;flex-wrap:wrap}
+.pill{display:inline-block;padding:.15em .8em;border-radius:99px;border:1px solid var(--line);background:var(--glass);font-size:clamp(.8rem,1.4vw,1.05rem);color:var(--ink)}
+.quote{font-size:clamp(1.05rem,2vw,1.6rem);color:var(--ink);font-weight:600}
+.cover{align-items:center;text-align:center}
+.cover h1 span{background:linear-gradient(90deg,var(--gold),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hb{display:grid;grid-template-columns:7.5em 1fr 2.2em;align-items:center;gap:.8vw;margin:.7vh 0}
+.hb span{color:var(--ink);font-size:clamp(.85rem,1.5vw,1.1rem)}
+.track{height:16px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.track i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(270deg,var(--teal),var(--sky));transition:width 1.5s cubic-bezier(.2,.8,.2,1)}
+.hb em{font-style:normal;font-weight:800;color:var(--gold)}
+.months{display:flex;gap:8px;flex-wrap:wrap}
+.months button{all:unset;cursor:pointer;padding:.35em 1em;border-radius:99px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font-size:clamp(.85rem,1.5vw,1.1rem);transition:.25s}
+.months button:hover,.months button:focus-visible{border-color:var(--gold)}
+.months button.on{background:var(--gold);color:#1a1038;font-weight:800}
+#mlist li{margin:.5em 0;color:var(--ink);list-style:none}
+#mlist li::before{content:"●";color:var(--teal);margin-inline-end:.6em;font-size:.7em}
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:1vw;position:relative}
+.path .glass{text-align:center}
+.step i{display:grid;place-items:center;width:44px;height:44px;margin:0 auto .6vh;border-radius:50%;background:var(--gold);color:#1a1038;font-style:normal;font-weight:900}
+.ctl{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 2.2vh);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:99px;background:rgba(10,18,40,.72);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:20}
+.ctl button{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:18px;color:var(--ink);background:var(--glass)}
+.ctl button:hover,.ctl button:focus-visible{background:var(--gold);color:#1a1038}
+.ctl span{min-width:56px;text-align:center;font-weight:600;font-size:.95rem}
+.dots{display:flex;gap:6px}.dots u{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);transition:.3s;cursor:pointer}.dots u.on{background:var(--gold);width:20px;border-radius:99px}
+@media(max-width:860px){.g3,.g2{grid-template-columns:1fr}.g5{grid-template-columns:repeat(2,1fr)}.path{grid-template-columns:repeat(2,1fr)}.slide{padding:6vh 5vw 14vh}.dots{display:none}.hb{grid-template-columns:6em 1fr 2em}}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<main class="deck">
+
+<section class="slide cover">
+  <div class="ic">🧭</div>
+  <h1>البرنامج السنوي لمستشار(ة)<br><span>التوجيه والإرشاد – المتوسط</span></h1>
+  <div class="row" style="justify-content:center"><div><span class="num" data-count="48">0</span><p>نشاطًا تقديريًا</p></div><div><span class="num" data-count="5">0</span><p>محاور عمل</p></div></div>
+  <p>الجمهورية الجزائرية الديمقراطية الشعبية – وزارة التربية الوطنية</p>
+</section>
+
+<section class="slide">
+  <h2>خمسة محاور تنظّم عمل السنة</h2>
+  <div class="grid g5">
+    <div class="glass card"><div class="ic">📣</div><span class="num" data-count="23">0</span><b>الإعلام المدرسي</b></div>
+    <div class="glass card"><div class="ic">🫶</div><span class="num" data-count="12">0</span><b>الإرشاد والتكفل النفسي</b></div>
+    <div class="glass card"><div class="ic">🧭</div><span class="num" data-count="3">0</span><b>التوجيه المدرسي</b></div>
+    <div class="glass card"><div class="ic">📊</div><span class="num" data-count="7">0</span><b>التقويم البيداغوجي</b></div>
+    <div class="glass card"><div class="ic">🔬</div><span class="num" data-count="3">0</span><b>الدراسات</b></div>
+  </div>
+  <p>الإعلام والإرشاد يستحوذان على أغلب النشاطات، ويتحوّل التركيز إلى التوجيه عند نهاية السنة الدراسية في الرابعة متوسط.</p>
+</section>
+
+<section class="slide">
+  <h2>خريطة السنة: اختر شهرًا</h2>
+  <div class="months" id="months"></div>
+  <div class="glass"><b class="gold" id="mt" style="font-size:1.3rem"></b><ul id="mlist"></ul></div>
+</section>
+
+<section class="slide">
+  <h2>الإعلام المدرسي: لمن تُوجَّه النشاطات؟</h2>
+  <div class="grid g2">
+    <div class="glass">
+      <div class="hb"><span>الأولى متوسط</span><div class="track"><i data-w="80"></i></div><em data-count="4">0</em></div>
+      <div class="hb"><span>الثانية متوسط</span><div class="track"><i data-w="40"></i></div><em data-count="2">0</em></div>
+      <div class="hb"><span>الثالثة متوسط</span><div class="track"><i data-w="100"></i></div><em data-count="5">0</em></div>
+      <div class="hb"><span>الرابعة متوسط</span><div class="track"><i data-w="100"></i></div><em data-count="5">0</em></div>
+      <div class="hb"><span>الخامسة ابتدائي</span><div class="track"><i data-w="40"></i></div><em data-count="2">0</em></div>
+      <div class="hb"><span>كل المستويات</span><div class="track"><i data-w="100"></i></div><em data-count="5">0</em></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr">
+      <div class="glass card"><b class="teal">للتلاميذ</b><p>حصص جماعية حول المحيط المدرسي، المواقيت والمعاملات، إجراءات القبول والتوجيه نحو الثانوي والتكوين المهني.</p></div>
+      <div class="glass card"><b class="sky">للأولياء</b><p>لقاءات حول المعالجة البيداغوجية، الامتحانات، الطعن، وهيكلة التعليم الثانوي.</p></div>
+      <div class="glass card"><b class="vio">للمجتمع المدرسي</b><p>اليوم العالمي للرياضيات (14 مارس) والأسبوع الوطني للإعلام والأبواب المفتوحة في أفريل.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>الإرشاد والتكفل النفسي</h2>
+  <div class="grid g3">
+    <div class="glass card"><div class="ic">🌱</div><b>مع الدخول المدرسي</b><p>جماعات حوار للتحضير النفسي للعودة، والمشاركة في أسبوع الصحة المدرسية.</p></div>
+    <div class="glass card"><div class="ic">🗓️</div><b>طوال السنة</b><div class="row"><span class="num" data-count="15" style="font-size:2.6rem">0</span><p>يومًا بين كل مقابلة إرشادية دورية</p></div><p>مع التكفل بذوي صعوبات التعلم وبناء المشروع الشخصي.</p></div>
+    <div class="glass card"><div class="ic">🤝</div><b>لجنة الإرشاد والمتابعة</b><p>تُفعَّل في أكتوبر، وتتكفل بالحالات النفسية بصفة دورية.</p></div>
+    <div class="glass card"><div class="ic">🎯</div><b>الرابعة متوسط: الميول</b><p>استبيان الميول (نوفمبر)، ثم مقابلات فردية (ديسمبر وأفريل)، وتقنية ADVP في ديسمبر.</p></div>
+    <div class="glass card"><div class="ic">😮‍💨</div><b>فترات الاختبارات</b><p>مرافقة نفسية للتخفيف من التوتر والقلق.</p></div>
+    <div class="glass card"><div class="ic">🎓</div><b>التحضير لشهادة التعليم المتوسط</b><p>جماعات حوار في أفريل للخوف والقلق والنسيان، ومرافقة في مراكز الإجراء في الأسبوع الأول من ماي.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>رحلة تلميذ الرابعة متوسط</h2>
+  <div class="path">
+    <div class="glass step"><i>1</i><b class="gold">نوفمبر</b><p>تعريف بالقبول وأهمية الشهادة، وتطبيق استبيان الميول.</p></div>
+    <div class="glass step"><i>2</i><b class="gold">ديسمبر</b><p>تقنية ADVP ومقابلات فردية حول نتائج الاستبيان.</p></div>
+    <div class="glass step"><i>3</i><b class="gold">جانفي</b><p>دراسة الرغبات الأولية، ومقارنتها بنتائج الفصل الأول، وتصحيحها مع التلميذ وولي الأمر.</p></div>
+    <div class="glass step"><i>4</i><b class="gold">أفريل</b><p>إعلام بالتكوين المهني، ومراجعة الرغبات وفق الفصل الثاني، وتحضير نفسي للامتحان.</p></div>
+    <div class="glass step"><i>5</i><b class="gold">ماي</b><p>مرافقة المترشحين في مراكز الإجراء.</p></div>
+    <div class="glass step"><i>6</i><b class="gold">جوان</b><p>تنصيب بطاقة الرغبات النهائية والمشاركة في الخريطة المدرسية.</p></div>
+    <div class="glass step"><i>7</i><b class="gold">جويلية</b><p>تقييم نتائج الشهادة ومقارنتها بالتقويم المستمر.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>التقويم البيداغوجي والدراسات</h2>
+  <div class="grid g2">
+    <div class="glass">
+      <b class="teal">التقويم البيداغوجي <span class="num" data-count="7" style="font-size:1.8rem">0</span></b>
+      <p>● استغلال الاختبارات التشخيصية في الشهر الأول.<br>● تحليل نتائج السنة المنصرمة مع الابتدائي (أكتوبر إلى نوفمبر).<br>● تبليغ النتائج الفصلية وجلسات تنسيق مع الأساتذة.<br>● المشاركة في مجالس الحياة المدرسية.</p>
+    </div>
+    <div class="glass">
+      <b class="vio">الدراسات <span class="num" data-count="3" style="font-size:1.8rem">0</span></b>
+      <p>● متابعة الناجحين في الاختبارات الاستدراكية.<br>● دراسة أسباب الإعادة في الأولى متوسط واقتراح علاج (فيفري، الأسبوع 2).<br>● متابعة تلاميذ الثانية والثالثة متوسط بمعدلات بين 9 و9.99 من 20 (مارس وماي).</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide cover">
+  <div class="ic">🏁</div>
+  <h1>سنة كاملة<br><span>تُرافق التلميذ من الدخول إلى التوجيه</span></h1>
+  <div class="row" style="justify-content:center"><span class="pill">📣 إعلام</span><span class="pill">🫶 إرشاد</span><span class="pill">🧭 توجيه</span><span class="pill">📊 تقويم</span><span class="pill">🔬 دراسات</span></div>
+</section>
+
+</main>
+
+<div class="ctl">
+  <button id="nx" aria-label="التالي">‹</button>
+  <div class="dots" id="dots"></div>
+  <span id="cnt"></span>
+  <button id="pv" aria-label="السابق">›</button>
+  <button id="fs" aria-label="ملء الشاشة">⛶</button>
+</div>
+
+<script>
+const M={
+"سبتمبر":["حصص تعريفية للأولى متوسط بالمحيط والفريق التربوي (أسبوع الدخول)","حصص ولقاء أولياء حول المعالجة البيداغوجية لتقييم المكتسبات","جماعات حوار وأسبوع الصحة المدرسية"],
+"أكتوبر":["تفعيل لجنة الإرشاد والمتابعة","حصص حول مواقيت ومعاملات المواد (الثانية والثالثة)","تحليل نتائج السنة المنصرمة مع الابتدائي (إلى نوفمبر)"],
+"نوفمبر":["حصص إجراءات القبول إلى الأولى ثانوي (الثالثة والرابعة)","استبيان الميول والاهتمامات (الرابعة)","حصص المواقيت وأساليب التقويم (الأولى، الأسبوع 1)"],
+"ديسمبر":["تقنية ADVP لفائدة الرابعة","مقابلات فردية لاستغلال استبيان الميول","نهاية الفصل: استقبال الأولياء وتبليغ النتائج"],
+"جانفي":["لقاءات أولياء الخامسة ابتدائي والرابعة متوسط","دراسة الرغبات الأولية للرابعة وتبليغ التوجيه المسبق","حصص ميول الثالثة، وبداية الملف الإعلامي (إلى مارس)"],
+"فيفري":["لقاء أولياء الثالثة متوسط حول أهمية نتائج السنة","دراسة أسباب ارتفاع الإعادة في الأولى (الأسبوع 2)"],
+"مارس":["14 مارس: اليوم العالمي للرياضيات","متابعة تلاميذ المعدلات بين 9 و9.99 (الأسبوع 2)"],
+"أفريل":["الأسبوع الوطني للإعلام والأبواب المفتوحة","بطاقة الرغبات الأولية للثالثة، وإعلام الرابعة بالتكوين المهني","دراسة رغبات الفصل الثاني والتحضير النفسي للشهادة"],
+"ماي":["مرافقة مترشحي الشهادة في مراكز الإجراء (الأسبوع 1)","متابعة تلاميذ المعدلات بين 9 و9.99 (الأسبوع 4)","نهاية نشاط خلية التوثيق والإعلام"],
+"جوان":["تنصيب بطاقة الرغبات النهائية","رصد الراغبين في المسار المهني وتحضير الخريطة المدرسية"],
+"جويلية":["تقييم نتائج شهادة التعليم المتوسط ومقارنتها بالتقويم المستمر"]};
+const mb=document.getElementById('months'),ml=document.getElementById('mlist'),mt=document.getElementById('mt');
+function pick(k){[...mb.children].forEach(b=>b.classList.toggle('on',b.textContent===k));mt.textContent=k;ml.innerHTML='';M[k].forEach(t=>{const l=document.createElement('li');l.textContent=t;ml.appendChild(l)})}
+Object.keys(M).forEach(k=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>pick(k);mb.appendChild(b)});pick('سبتمبر');
+
+const S=[...document.querySelectorAll('.slide')],N=S.length;let i=0;
+const dots=document.getElementById('dots');
+S.forEach((_,k)=>{const u=document.createElement('u');u.onclick=()=>go(k);dots.appendChild(u)});
+const ar=n=>String(n).replace(/\d/g,d=>'0123456789'[d]);
+function count(el){const t=+el.dataset.count,t0=performance.now();
+  (function f(now){const p=Math.min((now-t0)/1400,1),e=1-Math.pow(1-p,3);el.textContent=ar(Math.round(t*e));if(p<1)requestAnimationFrame(f)})(t0)}
+function enter(s){
+  s.querySelectorAll('[data-count]').forEach(count);
+  s.querySelectorAll('.track i').forEach(b=>{b.style.width='0';requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=b.dataset.w+'%'))});
+}
+function go(n){
+  n=Math.max(0,Math.min(N-1,n));
+  S.forEach((s,k)=>{s.classList.toggle('on',k===n);s.classList.toggle('prev',k<n)});
+  i=n;enter(S[n]);
+  document.getElementById('prog').style.width=((n+1)/N*100)+'%';
+  document.getElementById('cnt').textContent=ar(n+1)+' / '+ar(N);
+  [...dots.children].forEach((u,k)=>u.classList.toggle('on',k===n));
+}
+const next=()=>go(i+1),prev=()=>go(i-1);
+document.getElementById('nx').onclick=next;document.getElementById('pv').onclick=prev;
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'||e.key==='PageDown')next();
+  else if(e.key==='ArrowRight'||e.key==='PageUp')prev();
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(N-1);
+  else if(e.key==='f'||e.key==='F')fs();
+});
+let x0=null,y0=0;
+document.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)(dx>0?next:prev)();x0=null});
+function fs(){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){}}
+document.getElementById('fs').onclick=fs;
+go(0);
+</script>
+</body>
+</html>
